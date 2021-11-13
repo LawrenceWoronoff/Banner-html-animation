@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>728 X 90 banner</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+	<style>
+
+		.hidden_div{
+			display: none;
+		}
+
+		.panel {
+			margin: 0px; height: 90px; width: 728px; border: 1px solid #11334e; padding: 5px;
+		}
+
+		.left-panel{
+			animation: zoomAni 8s linear 8s infinite alternate;
+			transform: scale(0.95);
+
+			padding: 0px; 
+			width: 180px; 
+			height: 100%; 
+			display: inline-block; 
+			background-image: url('./assets/img_big.jpg');  
+			background-size: cover; margin-right: 5px;
+		}
+
+		.logo {
+			width: 40px; position: absolute; padding: 0px;
+		}
+
+		.banner-title {
+			color: white;
+			font-size: 10px;
+			text-align: right;
+			animation: fade 5s linear 2s 1 alternate;
+			opacity: 0;
+			font-family: 'gold-play';
+			margin: 0px !important;
+		}
+		.banner-content {
+			color: white;
+			font-size: 12px;
+			line-height: 21px;
+			font-weight: 900;
+			opacity: 0;
+			font-family: 'gold-play';
+			text-align: right;
+			margin: 0px !important;
+		}
+	
+		.comment {
+
+			position: absolute;
+			background-image: url('./assets/comment.png'); 
+			background-size: cover; 
+			cursor: pointer;	
+			color:#11334e;  
+			font-weight: 900; 
+			padding:5px; 
+			text-align:center;
+
+			width: 65px; height: 70px; top: 10px; left:160px; font-size: 13px; line-height: 17px;
+		}
+
+
+		.right-panel {
+			width: 530px; height:100%; padding: 13px 8px; display: inline-block; background-color: #11334e
+		}
+
+		.button-div {
+			opacity: 0;
+			padding: 10px 5px 10px 20px; 
+		}
+		.click-button {
+			text-align: center;
+			font-family: 'gold-play';
+
+			background: #f19a0d; border: none; padding: 3px 5px; color:white; font-size: 11px; width: 100%; font-weight: 900;
+		}
+
+        .handCursor{
+        	opacity: 0;
+        	position: absolute;
+        	top: 240px;
+        	left: 290px;
+        }
+
+        .imgHand {
+        	width:20px;
+        }
+
+        /* Keyframe definiations */
+
+       	@keyframes attractAni {
+		  0%   {top: 130px; left: 190px;}
+		  50%  {top: 145px; left: 190px;}
+		  100% {top: 130px; left: 190px;}
+		}
+
+		@keyframes zoomAni {
+		  0%   {transform: scale(0.95);}
+		  50%  {transform: scale(1.02);}
+		  100% {transform: scale(0.96);}
+		}
+
+		/* Gotham Custom Font Style*/
+
+		@font-face {
+            font-family: "gold-play";
+            src: url("./assets/fonts/Gotham Light.otf");
+            font-weight: lighter;
+            font-style: normal;
+            font-display: swap;
+        }
+
+
+	</style>
+</head>
+<body>
+	<div class="row panel">
+
+		<div class="left-panel">
+		</div>
+		<img class="logo" src="./assets/ARS_Logo_2_RGB_transp.png"/>
+
+		<div class="d-flex right-panel">
+			<div style="width: 70%; padding: 10px 0px;">
+				<p class="banner-title">Erfolgreich durchstarten</p>
+				<p class="banner-content">
+					Grundlagen der
+					Buchhaltung für
+					Personalverrechnung
+				</p>
+			</div>
+			<div class="button-div hidden_div d-flex justify-content-center" style="width: 30%">
+				<button class="click-button" style="">Jetzt informieren</button>
+			</div>
+		</div>
+		<div class="comment">
+		</div>
+
+		<div class="handCursor hidden_div">
+			<img class="imgHand" src="./assets/hand-effect.png"/>
+		</div>
+	</div>
+</body>
+</html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	var opacityVal = 0;
+	var buttonOpacityVal = 0;
+	var attractOpacityVal = 0;
+	var handOpacityVal = 0;
+
+	var handTop = 70;
+	var handLeft = 700;
+
+	$( document ).ready(function() {
+	  refreshIntervalId = setInterval(setOpacity, 100)
+
+	  function setOpacity()
+	  {
+	  	opacityVal = opacityVal >= 1 ? 1 : (opacityVal + 0.05);
+
+	  	$('.banner-title').css('opacity', opacityVal);
+	  	$('.banner-content').css('opacity', opacityVal);
+
+	  	if(opacityVal >= 1)
+	  	{
+	  		clearInterval(refreshIntervalId);
+
+			
+	  		$(".button-div").removeClass('hidden_div');
+	  		buttonInterval = setInterval(movePosition, 100);
+	  	}
+	  }
+
+	  function movePosition()
+	  {
+	  	buttonOpacityVal = buttonOpacityVal >= 1 ? 1 : (buttonOpacityVal + 0.05);
+	  	$('.button-div').css('opacity', buttonOpacityVal);
+
+	  	if(buttonOpacityVal >= 1)
+	  	{
+	  		clearInterval(buttonInterval);
+
+	  		$('.handCursor').removeClass('hidden_div');
+	  		handInterval = setInterval(handPosition, 100);
+
+	  	}
+	  }
+
+	  function handPosition()
+	  {
+	  	 handTop -= 1;
+	  	 handLeft -= 1;
+	  	 handOpacityVal += 0.1;
+
+	  	 if(handTop <= 50){
+	  	 	clearInterval(handInterval)
+	  	 }
+	  	 $(".handCursor").offset({ top: handTop, left: handLeft });
+	  	 $('.handCursor').css('opacity', handOpacityVal);
+	  }
+	});
+</script>
